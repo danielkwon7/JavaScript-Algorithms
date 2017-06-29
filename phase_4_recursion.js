@@ -74,8 +74,13 @@ return -1;
 }
 
 function mergesort(arr) {
-
-
+  if (arr.length < 2) {
+    return arr;
+  }
+  let half = Math.floor(arr.length / 2);
+  let left = arr.slice(0, half);
+  let right = arr.slice(half, arr.length);
+  return merge(mergesort(left), mergesort(right));
 }
 
 function merge(arr1, arr2) {
@@ -90,4 +95,16 @@ function merge(arr1, arr2) {
     }
   }
   return sorted_array.concat(left.concat(right));
+}
+
+function subsets(arr) {
+  if (arr.length === 0) {
+    return [[]];
+  }
+  const first = arr[0];
+  let prev = subsets(arr.slice(1));
+  let prev_add = prev.map(function(el) {
+    [first].concat(el);
+  });
+  return prev.concat(prev_add);
 }
